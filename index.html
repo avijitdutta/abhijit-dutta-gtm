@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhijit Dutta — GTM Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Fraunces:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --ink:      #0D0F14;
+  --ink2:     #181C26;
+  --surface:  #1E2332;
+  --gold:     #D4A843;
+  --gold-lt:  #F0C96A;
+  --teal:     #2DD4BF;
+  --indigo:   #818CF8;
+  --fg:       #E8EDF5;
+  --fg2:      #8A96A8;
+  --fg3:      #4A5568;
+  --white:    #FFFFFF;
+  --r-card:   18px;
+  --r-btn:    10px;
+  --ease:     cubic-bezier(.22,.68,0,1.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────
+   NOISE TEXTURE OVERLAY
+───────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 80px);
+  height: 62px;
+  background: rgba(13,15,20,.75);
+  backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .3s;
+}
+.nav-mark {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--fg2);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color .2s, background .2s;
+}
+.nav-links a:hover { color: var(--fg); background: rgba(255,255,255,.06); }
+.nav-links .cta {
+  background: var(--gold);
+  color: var(--ink) !important;
+  font-weight: 700;
+  margin-left: 8px;
+}
+.nav-links .cta:hover { background: var(--gold-lt); }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px clamp(20px, 5vw, 80px) 80px;
+  overflow: hidden;
+}
+
+/* Orb backgrounds */
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+.hero::before {
+  width: 700px; height: 700px;
+  top: -200px; right: -150px;
+  background: radial-gradient(circle, rgba(212,168,67,.18) 0%, transparent 65%);
+}
+.hero::after {
+  width: 500px; height: 500px;
+  bottom: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(45,212,191,.12) 0%, transparent 65%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(48px, 8vw, 88px);
+  line-height: .98;
+  letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,.35);
+}
+.hero h1 .gold { color: var(--gold); -webkit-text-stroke: 0; }
+
+.hero-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--fg2);
+  max-width: 520px;
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 44px;
+}
+.hero-desc strong { color: var(--fg); font-weight: 500; }
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 72px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: var(--r-btn);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .25s var(--ease), box-shadow .25s, background .2s;
+  cursor: pointer;
+  border: none;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-gold {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgba(212,168,67,.3);
+}
+.btn-gold:hover { background: var(--gold-lt); box-shadow: 0 12px 32px rgba(212,168,67,.45); }
+.btn-ghost {
+  background: rgba(255,255,255,.07);
+  color: var(--fg);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.12); }
+
+/* Hero stats strip */
+.hero-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,.03);
+  max-width: 680px;
+}
+.hs {
+  flex: 1;
+  padding: 22px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.08);
+  transition: background .2s;
+}
+.hs:last-child { border-right: none; }
+.hs:hover { background: rgba(255,255,255,.05); }
+.hs-num {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 5px;
+  letter-spacing: -1px;
+}
+.hs-lbl {
+  font-size: 10.5px;
+  color: var(--fg3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────
+   SECTION WRAPPER
+───────────────────────────────────────── */
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 80px);
+}
+
+section { padding: 100px 0; position: relative; }
+
+.s-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+.s-label::before {
+  content: '';
+  display: block;
+  width: 20px; height: 1.5px;
+  background: var(--teal);
+}
+
+.s-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+.s-sub {
+  color: var(--fg2);
+  font-size: 15px;
+  font-weight: 300;
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 60px;
+}
+
+/* ─────────────────────────────────────────
+   MARQUEE STATS BAR
+───────────────────────────────────────── */
+.stats-band {
+  background: var(--ink2);
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 0;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+}
+.mq-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 48px;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+}
+.mq-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: -1px;
+}
+.mq-lbl {
+  font-size: 12px;
+  color: var(--fg3);
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* ─────────────────────────────────────────
+   CAPABILITIES BENTO
+───────────────────────────────────────── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 16px;
+}
+.bento-card {
+  background: var(--ink2);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--r-card);
+  padding: 32px;
+  transition: border-color .3s, transform .3s var(--ease), box-shadow .3s;
+  position: relative;
+  overflow: hidden;
+}
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(212,168,67,.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.bento-card:hover { border-color: rgba(212,168,67,.25); transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.bento-card:hover::before { opacity: 1; }
+
+.bc-1 { grid-column: span 5; }
+.bc-2 { grid-column: span 4; }
+.bc-3 { grid-column: span 3; }
+.bc-4 { grid-column: span 7; }
+.bc-5 { grid-column: span 5; }
+.bc-6 { grid-column: span 4; }
+.bc-7 { grid-column: span 4; }
+.bc-8 { grid-column: span 4; }
+
+.bento-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  background: rgba(255,255,255,.05);
+  border-radius: 12px;
+}
+.bento-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: block;
+}
+.bento-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.bento-card p {
+  font-size: 13.5px;
+  color: var(--fg2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.bento-big-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 64px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(212,168,67,.5);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+
+/* ─────────────────────────────────────────
+   TIMELINE
+───────────────────────────────────────── */
+.timeline-wrap {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+}
+.tl-nav {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  padding-right: 40px;
+  border-right: 1px solid rgba(255,255,255,.07);
+}
+.tl-nav-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--fg3);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.tl-nav-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: opacity .2s;
+  opacity: .45;
+}
+.tl-nav-item.active, .tl-nav-item:hover { opacity: 1; }
+.tl-nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fg3);
+  margin-top: 5px;
+  flex-shrink: 0;
+  transition: background .2s, transform .2s;
+}
+.tl-nav-item.active .tl-nav-dot { background: var(--gold); transform: scale(1.4); }
+.tl-nav-co { font-size: 12.5px; font-weight: 600; color: var(--fg); line-height: 1.3; }
+.tl-nav-yr { font-size: 11px; color: var(--fg3); margin-top: 2px; }
+
+.tl-entries {
+  padding-left: 48px;
+}
+.tl-entry {
+  padding: 0 0 56px;
+  opacity: .5;
+  transition: opacity .3s;
+}
+.tl-entry:last-child { padding-bottom: 0; }
+.tl-entry.visible { opacity: 1; }
+
+.tl-co-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.tl-co {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.tl-yr {
+  font-size: 11px;
+  color: var(--fg3);
+  background: rgba(255,255,255,.05);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.tl-chip-active {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(45,212,191,.12);
+  color: var(--teal);
+  border: 1px solid rgba(45,212,191,.25);
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+}
+.tl-role {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  letter-spacing: -.5px;
+  margin-bottom: 20px;
+}
+.tl-points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+.tl-points li {
+  font-size: 13.5px;
+  color: var(--fg2);
+  line-height: 1.7;
+  padding-left: 16px;
+  position: relative;
+  font-weight: 300;
+}
+.tl-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px; height: 1px;
+  background: var(--fg3);
+}
+.pill {
+  display: inline-block;
+  background: rgba(212,168,67,.1);
+  border: 1px solid rgba(212,168,67,.25);
+  color: var(--gold-lt);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin: 0 2px;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────
+   INDUSTRIES
+───────────────────────────────────────── */
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.ind-cell {
+  padding: 28px 24px;
+  background: var(--ink2);
+  transition: background .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ind-cell:hover { background: var(--surface); }
+.ind-emoji { font-size: 26px; line-height: 1; }
+.ind-name { font-size: 14px; font-weight: 600; color: var(--fg); }
+.ind-depth { font-size: 11.5px; color: var(--fg3); }
+.ind-bar {
+  height: 2px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.ind-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--teal));
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.skills-group {
+  background: var(--ink2);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--r-card);
+  padding: 28px;
+}
+.sg-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.sg-icon { font-size: 18px; }
+.sg-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--teal);
+  font-weight: 700;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  color: var(--fg2);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 13px;
+  border-radius: 8px;
+  transition: border-color .2s, color .2s;
+}
+.tag:hover { border-color: rgba(212,168,67,.4); color: var(--gold); }
+
+/* ─────────────────────────────────────────
+   ENGAGEMENT
+───────────────────────────────────────── */
+.eng-section { background: var(--ink2); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
+.eng-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.eng-cell {
+  background: var(--ink2);
+  padding: 36px 32px;
+  transition: background .2s;
+  position: relative;
+}
+.eng-cell:hover { background: var(--surface); }
+.eng-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 11px;
+  color: var(--fg3);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  display: block;
+}
+.eng-cell h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.eng-cell p {
+  font-size: 13px;
+  color: var(--fg2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.eng-arrow {
+  position: absolute;
+  bottom: 28px; right: 28px;
+  font-size: 18px;
+  color: var(--fg3);
+  transition: color .2s, transform .2s;
+}
+.eng-cell:hover .eng-arrow { color: var(--gold); transform: translate(2px, -2px); }
+
+/* ─────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────── */
+.contact-section { background: var(--ink); }
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 80px;
+  align-items: start;
+}
+.contact-left h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(40px, 5vw, 64px);
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+.contact-left h2 span { color: var(--gold); }
+.contact-left p {
+  color: var(--fg2);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 440px;
+  margin-bottom: 44px;
+}
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  padding: 16px 20px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.contact-link:hover { border-color: rgba(212,168,67,.3); background: rgba(212,168,67,.05); transform: translateX(4px); }
+.cl-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  background: rgba(255,255,255,.06);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.cl-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--fg3); margin-bottom: 2px; }
+.cl-val { font-size: 14px; font-weight: 500; color: var(--fg); }
+
+/* CTA card */
+.cta-card {
+  background: var(--ink2);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  padding: 40px;
+  position: sticky;
+  top: 80px;
+}
+.cta-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px;
+  color: var(--white);
+  letter-spacing: -.5px;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.cta-card > p {
+  color: var(--fg2);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.fit-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.fit-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--fg2);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.fit-list li::before {
+  content: '→';
+  color: var(--gold);
+  font-size: 12px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 28px clamp(20px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer p { font-size: 12px; color: var(--fg3); }
+footer a { color: var(--fg3); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+
+/* ─────────────────────────────────────────
+   HAMBURGER MENU
+───────────────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  background: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--fg);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 62px; left: 0; right: 0;
+  background: rgba(13,15,20,.97);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 16px 24px 24px;
+  z-index: 199;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--fg2);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: background .2s, color .2s;
+}
+.mobile-menu a:hover { background: rgba(255,255,255,.06); color: var(--fg); }
+.mobile-menu .mob-cta {
+  background: var(--gold);
+  color: var(--ink) !important;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .timeline-wrap { grid-template-columns: 1fr; }
+  .tl-nav { display: none; }
+  .tl-entries { padding-left: 0; }
+  .bento { grid-template-columns: 1fr 1fr; }
+  .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7,.bc-8 { grid-column: span 2; }
+  .bc-3 { grid-column: span 1; }
+  .bc-8 { grid-column: span 1; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .cta-card { position: static; }
+  .eng-grid { grid-template-columns: 1fr 1fr; }
+  section { padding: 72px 0; }
+}
+@media (max-width: 768px) {
+  /* Nav */
+  nav .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero */
+  .hero { padding-top: 100px; padding-bottom: 60px; }
+  .hero h1 { letter-spacing: -1.5px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 14px;
+  }
+  .hs {
+    border-right: 1px solid rgba(255,255,255,.08);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .hs:nth-child(2n) { border-right: none; }
+  .hs:nth-child(3), .hs:nth-child(4) { border-bottom: none; }
+
+  /* Sections */
+  section { padding: 56px 0; }
+  .s-title { letter-spacing: -1px; }
+  .s-sub { margin-bottom: 36px; }
+
+  /* Stats band */
+  .marquee-track { gap: 0; }
+  .mq-item { padding: 20px 28px; }
+
+  /* Bento */
+  .bento { grid-template-columns: 1fr; gap: 12px; }
+  .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7,.bc-8 { grid-column: span 1; }
+  .bento-big-num { font-size: 48px; }
+
+  /* Industry grid */
+  .ind-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Engagement */
+  .eng-grid { grid-template-columns: 1fr; }
+  .eng-cell { padding: 28px 24px; }
+
+  /* Skills */
+  .skills-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Contact */
+  .contact-inner { gap: 36px; }
+  .contact-left h2 { letter-spacing: -1.5px; }
+  .cta-card { padding: 28px 24px; }
+}
+@media (max-width: 480px) {
+  .ind-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#top" class="nav-mark">AD</a>
+  <ul class="nav-links">
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#engage">Engage</a></li>
+    <li><a href="#contact" class="cta">Connect</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#capabilities"  class="mob-link">Capabilities</a>
+  <a href="#experience"    class="mob-link">Experience</a>
+  <a href="#industries"    class="mob-link">Industries</a>
+  <a href="#skills"        class="mob-link">Skills</a>
+  <a href="#engage"        class="mob-link">Engage</a>
+  <a href="#contact"       class="mob-cta mob-link">Connect →</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="eyebrow">Fractional CXO · GTM Specialist · India Market Entry</div>
+    <h1>
+      Abhijit<br>
+      <em>Dutta</em>
+    </h1>
+    <p class="hero-desc">
+      <strong>30 years. $30M built from zero. 5× revenue scales.</strong><br>
+      The operator who launches markets others find too complex — and builds the teams, channels, and systems to make growth stick.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-gold">Start a conversation →</a>
+      <a href="https://linkedin.com/in/abhijit-dutta-049a6546" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs">
+        <div class="hs-num">30+</div>
+        <div class="hs-lbl">Years</div>
+      </div>
+      <div class="hs">
+        <div class="hs-num">$30M</div>
+        <div class="hs-lbl">ARR Built</div>
+      </div>
+      <div class="hs">
+        <div class="hs-num">5,000+</div>
+        <div class="hs-lbl">Partners Built</div>
+      </div>
+      <div class="hs">
+        <div class="hs-num">1,900+</div>
+        <div class="hs-lbl">Staff Led</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE STATS ── -->
+<div class="stats-band">
+  <div class="marquee-track">
+    <div class="mq-item"><span class="mq-num">$110M</span><span class="mq-lbl">Annual Business Managed</span></div>
+    <div class="mq-item"><span class="mq-num">400+</span><span class="mq-lbl">FTEs Led</span></div>
+    <div class="mq-item"><span class="mq-num">18</span><span class="mq-lbl">States Distribution Network</span></div>
+    <div class="mq-item"><span class="mq-num">15K+</span><span class="mq-lbl">GST Professionals Enrolled</span></div>
+    <div class="mq-item"><span class="mq-num">5×</span><span class="mq-lbl">Revenue Scale at Tally in 4 Yrs</span></div>
+    <div class="mq-item"><span class="mq-num">40%</span><span class="mq-lbl">CAGR at Nivea India</span></div>
+    <div class="mq-item"><span class="mq-num">Series C</span><span class="mq-lbl">Fundraise Contribution</span></div>
+    <div class="mq-item"><span class="mq-num">8</span><span class="mq-lbl">Industries Spanned</span></div>
+  </div>
+</div>
+
+<!-- ── CAPABILITIES ── -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="s-label reveal">What I do</div>
+    <h2 class="s-title reveal reveal-d1">Built for the gaps<br>others walk past</h2>
+    <p class="s-sub reveal reveal-d2">Each capability below is rooted in years of P&amp;L ownership — not theory, not advisory, but operational execution at scale.</p>
+
+    <div class="bento">
+      <div class="bento-card bc-1 reveal">
+        <div class="bento-icon">🚀</div>
+        <span class="bento-tag">India Entry</span>
+        <h3>India Market Entry</h3>
+        <p>Built three businesses from zero for international brands — Believe Cosmetics (Singapore), Nivea, and Innoviti. Regulatory, distribution, cultural — handled end to end.</p>
+      </div>
+
+      <div class="bento-card bc-2 reveal reveal-d1">
+        <div class="bento-icon">🏗️</div>
+        <span class="bento-tag">Channels</span>
+        <h3>Channel Architecture</h3>
+        <p>Created distribution channels that didn't exist — first channel model for Tally, first fintech retail channel for Innoviti, rural RDS for Nokia across 18 states.</p>
+      </div>
+
+      <div class="bento-card bc-3 reveal reveal-d2">
+        <div class="bento-big-num">5×</div>
+        <h3>Revenue Scale</h3>
+        <p>$25M → $130M at Tally. $5M → $40M at Nivea. $0 → $30M at Believe.</p>
+      </div>
+
+      <div class="bento-card bc-4 reveal">
+        <div class="bento-icon">💼</div>
+        <span class="bento-tag">Fractional</span>
+        <h3>Fractional CXO — CBO · CSO · CRO · CEO</h3>
+        <p>Currently active concurrently as Director at Pepperfry and CSO / Board Advisor at Hostbooks — board-level strategy and street-level execution running simultaneously across multiple mandates. Ideal for Series A–C companies that need senior GTM leadership without a full-time hire.</p>
+      </div>
+
+      <div class="bento-card bc-5 reveal reveal-d1">
+        <div class="bento-icon">🌏</div>
+        <span class="bento-tag">Expansion</span>
+        <h3>International Expansion</h3>
+        <p>Led expansion into Southeast Asia and the Middle East at Hostbooks. Subcontinent P&amp;L ownership across multiple mandates. Series C fundraise support at Believe Cosmetics.</p>
+      </div>
+
+      <div class="bento-card bc-6 reveal">
+        <div class="bento-icon">🤝</div>
+        <span class="bento-tag">B2B</span>
+        <h3>B2B Vertical Building</h3>
+        <p>Building Pepperfry's B2B vertical from scratch — 15+ channel partners onboarded within months.</p>
+      </div>
+
+      <div class="bento-card bc-7 reveal reveal-d1">
+        <div class="bento-icon">📈</div>
+        <span class="bento-tag">Fundraising</span>
+        <h3>VC &amp; Series Round Support</h3>
+        <p>Series C contribution at Believe Cosmetics. Actively working with VC teams at Hostbooks on ongoing raise.</p>
+      </div>
+
+      <div class="bento-card bc-8 reveal reveal-d2">
+        <div class="bento-icon">🏢</div>
+        <span class="bento-tag">Enterprise</span>
+        <h3>Enterprise Partnerships</h3>
+        <p>Secured Walmart, OYO, HDFC, Hero MotoCorp, HP, Reliance Digital, Croma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience" style="background: var(--ink2); border-top: 1px solid rgba(255,255,255,.06);">
+  <div class="wrap">
+    <div class="s-label reveal">Career</div>
+    <h2 class="s-title reveal reveal-d1">30 years of<br>building markets</h2>
+    <p class="s-sub reveal reveal-d2">From Reckitt Benckiser territory to Fractional CXO across global brands — every role sharpened the GTM instinct.</p>
+
+    <div class="timeline-wrap">
+      <div class="tl-nav">
+        <div class="tl-nav-title">Jump to</div>
+        <div class="tl-nav-item active" data-target="e0"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Pepperfry</div><div class="tl-nav-yr">2024 – Now</div></div></div>
+        <div class="tl-nav-item" data-target="e1"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Hostbooks</div><div class="tl-nav-yr">2023 – Now</div></div></div>
+        <div class="tl-nav-item" data-target="e2"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Believe Cosmetics</div><div class="tl-nav-yr">2020 – 2023</div></div></div>
+        <div class="tl-nav-item" data-target="e3"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Innoviti</div><div class="tl-nav-yr">2019 – 2020</div></div></div>
+        <div class="tl-nav-item" data-target="e4"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Tally Solutions</div><div class="tl-nav-yr">2015 – 2019</div></div></div>
+        <div class="tl-nav-item" data-target="e5"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Nokia / HCL</div><div class="tl-nav-yr">2010 – 2015</div></div></div>
+        <div class="tl-nav-item" data-target="e6"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Nivea India</div><div class="tl-nav-yr">2007 – 2010</div></div></div>
+        <div class="tl-nav-item" data-target="e7"><div class="tl-nav-dot"></div><div><div class="tl-nav-co">Reckitt Benckiser</div><div class="tl-nav-yr">1994 – 2007</div></div></div>
+      </div>
+
+      <div class="tl-entries">
+        <div class="tl-entry visible" id="e0">
+          <div class="tl-co-row"><span class="tl-co">Pepperfry</span><span class="tl-yr">Dec 2024 – Present</span><span class="tl-chip-active">Active</span></div>
+          <div class="tl-role">Director — B2B Business</div>
+          <ul class="tl-points">
+            <li>Spearheaded Pepperfry's B2B vertical launch across India — co-living, hospitality, F&amp;B, co-working</li>
+            <li>Designed GTM strategy, partner channel structure, SOPs across finance, supply chain, and ops</li>
+            <li>Onboarded <span class="pill">15+ strategic B2B channel partners</span> within first months of launch</li>
+            <li>Streamlined supplier ecosystem for customisable, client-specific fulfilment</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e1">
+          <div class="tl-co-row"><span class="tl-co">Hostbooks India Ltd</span><span class="tl-yr">Aug 2023 – Present</span><span class="tl-chip-active">Active</span></div>
+          <div class="tl-role">Chief Strategy Officer &amp; Board Advisor</div>
+          <ul class="tl-points">
+            <li>Created and implemented end-to-end GTM strategy, brand marketing, and people strategy</li>
+            <li>Led market expansion into <span class="pill">Southeast Asia &amp; Middle East</span></li>
+            <li>Built and scaled channel partner network; oversaw product GTM with tech teams</li>
+            <li>Collaborating with VC teams on active fundraising activities</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e2">
+          <div class="tl-co-row"><span class="tl-co">Believe Cosmetic Pvt Ltd</span><span class="tl-yr">May 2020 – May 2023</span></div>
+          <div class="tl-role">Chief Business Officer — India &amp; Subcontinent</div>
+          <ul class="tl-points">
+            <li>Built the India P&amp;L from zero to <span class="pill">$30M ARR</span> in four years</li>
+            <li>Scaled headcount from 0 to <span class="pill">400 FTEs + 1,500 contract staff</span> across 8 functions</li>
+            <li>Managed production, packaging, procurement, ATL/BTL, GT, MT, direct, and franchise channels</li>
+            <li>Critical contribution to <span class="pill">Series C fundraise</span> within three years of inception</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e3">
+          <div class="tl-co-row"><span class="tl-co">Innoviti Payment Solutions</span><span class="tl-yr">May 2019 – Apr 2020</span></div>
+          <div class="tl-role">CRO / VP Sales &amp; Business Development</div>
+          <ul class="tl-points">
+            <li>Launched Innoviti's Retail Vertical — <span class="pill">first-ever distribution channel in fintech</span></li>
+            <li>Generated <span class="pill">$2M ARR</span> in year one; 18-state distribution network from scratch</li>
+            <li>Onboarded 4,500 retail customers; led 120-person cross-functional team</li>
+            <li>Strategic partnerships with Walmart, OYO, Pharm Easy, Hero MotoCorp, HDFC, IDFC</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e4">
+          <div class="tl-co-row"><span class="tl-co">Tally Solutions</span><span class="tl-yr">Jul 2015 – Mar 2019</span></div>
+          <div class="tl-role">Partner Sales Director — India</div>
+          <ul class="tl-points">
+            <li>Introduced Tally's first-ever channel partner model; onboarded <span class="pill">5,000 B2B partners</span> in 4 years</li>
+            <li>Part of the scale-up from <span class="pill">$25M → $130M</span> in 4 years at 5× revenue growth</li>
+            <li>Led the historic GST rollout — 200,000 customers onboarded in a single quarter</li>
+            <li>Launched GST Pro Program enrolling <span class="pill">15,000+ professionals</span>; co-selling with HP, Croma, Vijay Sales</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e5">
+          <div class="tl-co-row"><span class="tl-co">Nokia India / HCL Infosystems</span><span class="tl-yr">Nov 2010 – Jul 2015</span></div>
+          <div class="tl-role">Regional Business Head — East India</div>
+          <ul class="tl-points">
+            <li>Full P&amp;L ownership across Eastern India — <span class="pill">$110M annual business</span></li>
+            <li>Designed rural distribution strategy; installed <span class="pill">600 rural distributors</span>, +20% direct distribution</li>
+            <li>Implemented Rural RDS replacing super-stockist model; led HR, Marketing, Finance, and Logistics</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e6">
+          <div class="tl-co-row"><span class="tl-co">Nivea India</span><span class="tl-yr">Jul 2007 – Oct 2010</span></div>
+          <div class="tl-role">Regional Leadership Unit Manager</div>
+          <ul class="tl-points">
+            <li>Part of the team that launched Nivea's India business unit across North, East, and South</li>
+            <li>Grew the region from <span class="pill">$5M → $40M</span> in 4 years at <span class="pill">40% CAGR</span></li>
+            <li>Led launches of Nivea for Men, Visage, and Soft; rolled out sales force automation and DMS pan-India</li>
+          </ul>
+        </div>
+
+        <div class="tl-entry" id="e7">
+          <div class="tl-co-row"><span class="tl-co">Reckitt Benckiser India</span><span class="tl-yr">Feb 1994 – Jun 2007</span></div>
+          <div class="tl-role">Branch Manager / Area Sales Manager</div>
+          <ul class="tl-points">
+            <li>13-year foundation — from frontline ASM to Branch Manager, West Bengal</li>
+            <li>Launched super-stockist rural operations for East India (1999); drove Colin, Lizol, Veet, Mortein launches</li>
+            <li>Led DMS and sales automation across regions — the roots of a 30-year GTM craft</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INDUSTRIES ── -->
+<section id="industries">
+  <div class="wrap">
+    <div class="s-label reveal">Domain Depth</div>
+    <h2 class="s-title reveal reveal-d1">Eight industries,<br>real P&amp;L ownership</h2>
+    <p class="s-sub reveal reveal-d2">Not advisory — operating experience across a rare breadth of sectors.</p>
+    <div class="ind-grid reveal">
+      <div class="ind-cell">
+        <div class="ind-emoji">🛒</div>
+        <div class="ind-name">FMCG / Consumer Goods</div>
+        <div class="ind-depth">Reckitt · Nivea · Believe</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:100%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">💻</div>
+        <div class="ind-name">IT Software / SaaS</div>
+        <div class="ind-depth">Tally · Hostbooks</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:100%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">💳</div>
+        <div class="ind-name">Fintech / Payments</div>
+        <div class="ind-depth">Innoviti Payment Solutions</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:80%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">📱</div>
+        <div class="ind-name">Telecom / IT Hardware</div>
+        <div class="ind-depth">Nokia · HCL Infosystems</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:80%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">🛍️</div>
+        <div class="ind-name">D2C / E-Commerce</div>
+        <div class="ind-depth">Believe · Pepperfry</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:80%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">🏨</div>
+        <div class="ind-name">Hospitality / Co-living</div>
+        <div class="ind-depth">Pepperfry B2B</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:60%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">🏢</div>
+        <div class="ind-name">B2B Enterprise</div>
+        <div class="ind-depth">Across multiple mandates</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:85%"></div></div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-emoji">🌱</div>
+        <div class="ind-name">Early-Stage Startups</div>
+        <div class="ind-depth">4× zero-to-revenue builds</div>
+        <div class="ind-bar"><div class="ind-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills" style="background: var(--ink2); border-top: 1px solid rgba(255,255,255,.06);">
+  <div class="wrap">
+    <div class="s-label reveal">Toolkit</div>
+    <h2 class="s-title reveal reveal-d1">The GTM toolkit</h2>
+    <p class="s-sub reveal reveal-d2">Hard skills built over decades of P&amp;L ownership — earned in the field, not the classroom.</p>
+    <div class="skills-grid reveal">
+      <div class="skills-group">
+        <div class="sg-head"><span class="sg-icon">💰</span><span class="sg-title">Revenue &amp; Sales</span></div>
+        <div class="tags">
+          <span class="tag">New Business Acquisition</span>
+          <span class="tag">B2B Sales Leadership</span>
+          <span class="tag">B2C / Retail Sales</span>
+          <span class="tag">Sales Presentations</span>
+          <span class="tag">Contract Negotiations</span>
+          <span class="tag">P&amp;L Ownership</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="sg-head"><span class="sg-icon">🗺️</span><span class="sg-title">GTM &amp; Strategy</span></div>
+        <div class="tags">
+          <span class="tag">GTM Strategy Design</span>
+          <span class="tag">India Market Entry</span>
+          <span class="tag">Channel Architecture</span>
+          <span class="tag">Partner Development</span>
+          <span class="tag">Product Marketing</span>
+          <span class="tag">Policy Formulation</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="sg-head"><span class="sg-icon">⚙️</span><span class="sg-title">Operations &amp; Scale</span></div>
+        <div class="tags">
+          <span class="tag">Startup Scaling</span>
+          <span class="tag">Budget Management</span>
+          <span class="tag">GST Rollouts</span>
+          <span class="tag">Compliance &amp; Automation</span>
+          <span class="tag">Sales Force Automation</span>
+          <span class="tag">Distribution Systems</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="sg-head"><span class="sg-icon">🤝</span><span class="sg-title">Stakeholder &amp; Finance</span></div>
+        <div class="tags">
+          <span class="tag">Investor Relations</span>
+          <span class="tag">VC Fundraising Support</span>
+          <span class="tag">Board Advising</span>
+          <span class="tag">People Strategy</span>
+          <span class="tag">Cross-functional Leadership</span>
+          <span class="tag">International Expansion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ENGAGEMENT ── -->
+<section class="eng-section" id="engage">
+  <div class="wrap">
+    <div class="s-label reveal">Engagement</div>
+    <h2 class="s-title reveal reveal-d1">How to work<br>together</h2>
+    <p class="s-sub reveal reveal-d2">Flexible structures designed around your growth stage and urgency.</p>
+    <div class="eng-grid reveal">
+      <div class="eng-cell">
+        <span class="eng-num">01</span>
+        <h3>Fractional CXO</h3>
+        <p>Embedded CBO, CSO, CRO, or CEO on a part-time or concurrent basis. Ideal for Series A–C companies needing executive horsepower without a full-time hire.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+      <div class="eng-cell">
+        <span class="eng-num">02</span>
+        <h3>India Market Entry</h3>
+        <p>End-to-end GTM ownership for international brands entering India — regulatory, distribution, team building, and first-year revenue targets.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+      <div class="eng-cell">
+        <span class="eng-num">03</span>
+        <h3>GTM Strategy Sprint</h3>
+        <p>90-day focused engagement to design and pressure-test your Go-To-Market playbook — channel model, pricing, partner strategy, launch sequencing.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+      <div class="eng-cell">
+        <span class="eng-num">04</span>
+        <h3>Channel Network Build</h3>
+        <p>Hands-on channel partner recruitment using a 30-year relationship network across FMCG, IT, Fintech, and consumer retail.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+      <div class="eng-cell">
+        <span class="eng-num">05</span>
+        <h3>Startup Turnaround</h3>
+        <p>Revenue rescue for stalled businesses — rapid diagnosis, priority reset, team re-alignment, and execution cadence to restore growth momentum.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+      <div class="eng-cell">
+        <span class="eng-num">06</span>
+        <h3>Board Advisory</h3>
+        <p>Strategic board-level input on GTM, fundraising positioning, and growth sequencing. Currently active board advisor at Hostbooks Ltd.</p>
+        <span class="eng-arrow">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <h2>Let's build<br><span>something.</span></h2>
+        <p>Whether you're entering India, scaling a vertical, or need a senior GTM operator to unlock your next phase — reach out directly. Abhijit is taking selective engagements in 2026.</p>
+        <div class="contact-links">
+          <a href="mailto:abhijit2dutta@gmail.com" class="contact-link">
+            <div class="cl-icon">📧</div>
+            <div><div class="cl-label">Email</div><div class="cl-val">abhijit2dutta@gmail.com</div></div>
+          </a>
+          <a href="https://wa.me/919972677750" target="_blank" class="contact-link">
+            <div class="cl-icon">💬</div>
+            <div><div class="cl-label">WhatsApp</div><div class="cl-val">+91 99726 77750</div></div>
+          </a>
+          <a href="tel:+919972677750" class="contact-link">
+            <div class="cl-icon">📞</div>
+            <div><div class="cl-label">Phone</div><div class="cl-val">+91 99726 77750</div></div>
+          </a>
+          <a href="https://linkedin.com/in/abhijit-dutta-049a6546" target="_blank" class="contact-link">
+            <div class="cl-icon">🔗</div>
+            <div><div class="cl-label">LinkedIn</div><div class="cl-val">abhijit-dutta-049a6546 ↗</div></div>
+          </a>
+          <a href="https://www.google.com/maps/place/Bangalore,+Karnataka,+India" target="_blank" class="contact-link">
+            <div class="cl-icon">📍</div>
+            <div><div class="cl-label">Location</div><div class="cl-val">Bangalore, India ↗</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="cta-card reveal reveal-d2">
+        <h3>Is this<br>a fit?</h3>
+        <p>Best match for companies that meet one or more of these criteria:</p>
+        <ul class="fit-list">
+          <li>International brand entering the India market</li>
+          <li>Series A–C startup needing fractional GTM leadership</li>
+          <li>B2B or D2C vertical that needs to be built from scratch</li>
+          <li>Business that has hit a growth plateau and needs a reset</li>
+          <li>SaaS, Fintech, or FMCG company scaling channel partnerships</li>
+          <li>Founder needing a board-level GTM sounding board</li>
+        </ul>
+        <a href="mailto:abhijit2dutta@gmail.com" class="btn btn-gold" style="width:100%; justify-content: center;">Send a note →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 Abhijit Dutta · Fractional CXO · Bangalore, India</p>
+  <p><a href="https://linkedin.com/in/abhijit-dutta-049a6546" target="_blank">LinkedIn ↗</a></p>
+</footer>
+
+<!-- ── JS: HAMBURGER + SCROLL REVEAL + TIMELINE NAV ── -->
+<script>
+(function() {
+  /* Hamburger menu */
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  // Close on any mobile-menu link click
+  menu.querySelectorAll('.mob-link').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    }
+  });
+
+  /* Scroll reveal */
+  const revEls = document.querySelectorAll('.reveal');
+  const ioRev = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ioRev.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revEls.forEach(el => ioRev.observe(el));
+
+  /* Timeline sidebar highlight */
+  const tlEntries = document.querySelectorAll('.tl-entry');
+  const navItems  = document.querySelectorAll('.tl-nav-item');
+  const ioTl = new IntersectionObserver(obs => {
+    obs.forEach(e => {
+      if (e.isIntersecting) {
+        tlEntries.forEach(en => en.classList.remove('visible'));
+        e.target.classList.add('visible');
+        const id = e.target.id;
+        navItems.forEach(n => n.classList.toggle('active', n.dataset.target === id));
+      }
+    });
+  }, { threshold: 0.4 });
+  tlEntries.forEach(e => ioTl.observe(e));
+
+  /* Timeline nav click-to-scroll */
+  navItems.forEach(n => {
+    n.addEventListener('click', () => {
+      document.getElementById(n.dataset.target)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
